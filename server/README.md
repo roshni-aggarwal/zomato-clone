@@ -1,4 +1,4 @@
-#API PLANNING
+# API PLANNING
 
 - Food (food items and their details)
 - Restaurant (restaurant and their details)
