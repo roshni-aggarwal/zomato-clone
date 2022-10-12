@@ -12,6 +12,7 @@ import Restaurant from "./api/restaurant";
 import User from "./api/user";
 import Menu from "./api/menu";
 import Order from "./api/order";
+import Review from "./api/review";
 
 // Private route authorization config
 import privateRouteConfig from "./api/config/route.config";
@@ -24,7 +25,7 @@ const zomato = express();
 privateRouteConfig(passport);
 
 zomato.use(express.json());
-zomato.use(session({ secret: "ZomatoApp" }));
+zomato.use(session({ secret: "process.env.SECRET_KEY" }));
 zomato.use(passport.initialize());
 zomato.use(passport.session());
 
@@ -40,6 +41,7 @@ zomato.use("/restaurant", Restaurant);
 zomato.use("/user", User);
 zomato.use("/menu", Menu);
 zomato.use("/order", Order);
+zomato.use("/review", Review);
 
 const PORT = 4000;
 

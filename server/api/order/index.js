@@ -31,4 +31,38 @@ Router.get(
   }
 );
 
+/**
+ * Route     /new
+ * Desc      Add new order
+ * Params    none
+ * Accesss   Private
+ * Method    PUT
+ */
+Router.put(
+  "/new/:_id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const { user } = req;
+      const { orderDetails } = req.body;
+
+      const addNewOrder = await OrderModel.findOneAndUpdate(
+        { user: user._id },
+        {
+          $push: {
+            orderDetails: orderDetails,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+
+      return res.status(200).json({ order: addNewOrder });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+);
+
 export default Router;
