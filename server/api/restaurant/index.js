@@ -46,7 +46,7 @@ Router.get("/", async (req, res) => {
     const restaurants = await RestaurantModel.find({ city });
 
     if (restaurants.length === 0)
-      return res.json({ error: "No restaurant found in this city" });
+      return res.staus(404).json({ message: "No restaurant found in this city" });
 
     return res.status(200).json({ restaurants });
   } catch (error) {
@@ -89,7 +89,7 @@ Router.get("/serach/:searchString", async (req, res) => {
       name: { $regex: searchString, $options: "i" },
     });
     if (restaurants.length === 0)
-      return res.status(400).json({ error: "No restaurant found" });
+      return res.status(404).json({ error: "No restaurant found" });
     return res.status(200).json({ restaurants });
   } catch (error) {
     return res.status(500).json({ error: error.message });

@@ -59,6 +59,12 @@ Router.get("/restaurant/:_id", async (req, res) => {
     const foods = await FoodModel.find({
       restaurant: _id,
     });
+
+    if (foods.length == 0)
+      return res
+        .status(404)
+        .json({ message: "No food found for this particular restaurant." });
+
     res.status(200).json({ foods });
   } catch (error) {
     return res.status(500).json({ error: error.message });
