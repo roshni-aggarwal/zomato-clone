@@ -2,13 +2,14 @@ import express from "express";
 import passport from "passport";
 
 import { OrderModel } from "../../database/allModels";
+import { validateOrderDetails } from "../../validation/order.validation";
 
 const Router = express.Router();
 
 /**
  * Route     /
  * Desc      Get all orders by user id
- * Params    _id
+ * Params    none
  * Accesss   Public
  * Method    GET
  */
@@ -45,6 +46,8 @@ Router.put(
     try {
       const { user } = req;
       const { orderDetails } = req.body;
+
+      await validateOrderDetails(req.body);
 
       const addNewOrder = await OrderModel.findOneAndUpdate(
         { user: user._id },
