@@ -13,7 +13,7 @@ const Router = express.Router();
  * Accesss   Public
  * Method    POST
  */
-Router.get("/", async (req, res) => {
+Router.post("/", async (req, res) => {
   try {
     const { data } = req.body;
 
@@ -46,7 +46,9 @@ Router.get("/", async (req, res) => {
     const restaurants = await RestaurantModel.find({ city });
 
     if (restaurants.length === 0)
-      return res.staus(404).json({ message: "No restaurant found in this city" });
+      return res
+        .staus(404)
+        .json({ message: "No restaurant found in this city" });
 
     return res.status(200).json({ restaurants });
   } catch (error) {
