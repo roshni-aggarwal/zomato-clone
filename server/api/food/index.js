@@ -1,6 +1,8 @@
 import express from "express";
 
 import { FoodModel } from "../../database/food";
+import { validRequiredString } from "../../validation/common.validation";
+import { validateFoodDetails } from "../../validation/food.validation";
 
 const Router = express.Router();
 
@@ -14,6 +16,7 @@ const Router = express.Router();
 Router.post("/food", async (req, res) => {
   try {
     const { data } = req.body;
+    await validateFoodDetails(req.body);
     const food = await FoodModel.create(data);
     res.status(200).json({
       message: "New food item is added !!!",
@@ -34,6 +37,7 @@ Router.post("/food", async (req, res) => {
 Router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
+    await validRequiredString(req.params);
     const food = await FoodModel.findById(_id);
     res.status(200).json({ food });
   } catch (error) {
@@ -51,9 +55,16 @@ Router.get("/:_id", async (req, res) => {
 Router.get("/restaurant/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
+    await validRequiredString(req.params);
     const foods = await FoodModel.find({
       restaurant: _id,
     });
+
+    if (foods.length == 0)
+      return res
+        .status(404)
+        .json({ message: "No food found for this particular restaurant." });
+
     res.status(200).json({ foods });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -70,6 +81,7 @@ Router.get("/restaurant/:_id", async (req, res) => {
 Router.get("/category/:category", async (req, res) => {
   try {
     const { category } = req.params;
+    await validRequiredString(req.params);
     const foods = await FoodModel.find({
       category: { $regex: category, $options: "i" },
     });

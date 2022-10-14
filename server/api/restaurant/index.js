@@ -1,6 +1,8 @@
 import express from "express";
 
 import { RestaurantModel } from "../../database/allModels";
+import { validRequiredString } from "../../validation/common.validation";
+import { validateRestaurantDetails } from "../../validation/restaurant.validation";
 
 const Router = express.Router();
 
@@ -14,6 +16,9 @@ const Router = express.Router();
 Router.get("/", async (req, res) => {
   try {
     const { data } = req.body;
+
+    await validateRestaurantDetails(req.body);
+
     const restaurant = await RestaurantModel.create(data);
     return res.status(200).json({
       message: "Restaurant added successfully !!!",
@@ -35,10 +40,13 @@ Router.get("/", async (req, res) => {
   try {
     //http:localhost:4000/?city=surat
     const { city } = req.query;
+
+    await validRequiredString(req.query);
+
     const restaurants = await RestaurantModel.find({ city });
 
     if (restaurants.length === 0)
-      return res.json({ error: "No restaurant found in this city" });
+      return res.staus(404).json({ message: "No restaurant found in this city" });
 
     return res.status(200).json({ restaurants });
   } catch (error) {
@@ -56,6 +64,7 @@ Router.get("/", async (req, res) => {
 Router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
+    await validRequiredString(req.params);
     const restaurant = await RestaurantModel.findById(_id);
     if (!restaurant)
       return res.status(400).json({ error: "No restaurant found" });
@@ -75,11 +84,12 @@ Router.get("/:_id", async (req, res) => {
 Router.get("/serach/:searchString", async (req, res) => {
   try {
     const { searchString } = req.params;
+    await validRequiredString(req.params);
     const restaurants = await RestaurantModel.find({
       name: { $regex: searchString, $options: "i" },
     });
     if (restaurants.length === 0)
-      return res.status(400).json({ error: "No restaurant found" });
+      return res.status(404).json({ error: "No restaurant found" });
     return res.status(200).json({ restaurants });
   } catch (error) {
     return res.status(500).json({ error: error.message });

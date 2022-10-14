@@ -1,6 +1,7 @@
 import express from "express";
 
 import { MenuModel, ImageModel } from "../../database/allModels";
+import { validRequiredString } from "../../validation/common.validation";
 
 const Router = express.Router();
 
@@ -14,6 +15,7 @@ const Router = express.Router();
 Router.get("/list/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
+    await validRequiredString(req.params);
     const menus = await MenuModel.findById(_id);
 
     if (!menus)
@@ -37,6 +39,7 @@ Router.get("/list/:_id", async (req, res) => {
 Router.get("/images/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
+    await validRequiredString(req.params);
 
     const menuImages = await ImageModel.findById(_id);
 

@@ -2,6 +2,8 @@ import express from "express";
 import passport from "passport";
 
 import { ReviewModel } from "../../database/allModels";
+import { validRequiredString } from "../../validation/common.validation";
+import { validateReview } from "../../validation/review.validation";
 
 const Router = express.Router();
 
@@ -15,6 +17,7 @@ const Router = express.Router();
 Router.get("/:resID", async (req, res) => {
   try {
     const { resID } = req.params;
+    await validRequiredString(req.params);
 
     const reviews = await ReviewModel.find({ restaurant: resID }).sort({
       createdAt: -1,
@@ -41,6 +44,8 @@ Router.post(
       const { _id } = req.user;
       const { reviewData } = req.body;
 
+      await validateReview(req.body);
+
       const review = await ReviewModel.create({ ...reviewData, user: _id });
 
       return res.status(200).json({ review });
@@ -63,6 +68,7 @@ Router.delete(
   async (req, res) => {
     try {
       const { id } = req.params;
+      await validRequiredString(req.params);
       const { user } = req;
 
       const data = await ReviewModel.findOneAndDelete({
