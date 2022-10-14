@@ -16,7 +16,8 @@ import Review from "./api/review";
 import Image from "./api/image/image";
 
 // Private route authorization config
-import privateRouteConfig from "./api/config/route.config";
+import privateRouteConfig from "./config/route.config";
+import googleAuthConfig from "./config/googleOAuth.config";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ const zomato = express();
 
 // adding additional passport configration
 privateRouteConfig(passport);
+googleAuthConfig(passport);
 
 zomato.use(express.json());
 zomato.use(session({ secret: "process.env.SECRET_KEY" }));
