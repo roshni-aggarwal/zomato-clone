@@ -1,7 +1,7 @@
 import express from "express";
 
 import { MenuModel, ImageModel } from "../../database/allModels";
-import { validRequiredString } from "../../validation/common.validation";
+import { validateId } from "../../validation/common.validation";
 
 const Router = express.Router();
 
@@ -15,15 +15,16 @@ const Router = express.Router();
 Router.get("/list/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    await validRequiredString(req.params);
+    await validateId(req.params);
     const menus = await MenuModel.findById(_id);
 
-    if (!menus)
+    if (!menus) {
       return res
         .status(404)
         .json({ error: "No menu present for this restaurant." });
+    }
 
-    return res.json(200).json({ menus });
+    return res.status(200).json({ menus });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -39,7 +40,7 @@ Router.get("/list/:_id", async (req, res) => {
 Router.get("/images/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    await validRequiredString(req.params);
+    await validateId(req.params);
 
     const menuImages = await ImageModel.findById(_id);
 

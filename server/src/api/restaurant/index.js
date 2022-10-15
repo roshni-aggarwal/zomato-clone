@@ -1,7 +1,7 @@
 import express from "express";
 
 import { RestaurantModel } from "../../database/allModels";
-import { validRequiredString } from "../../validation/common.validation";
+import { validateId, validRequiredString } from "../../validation/common.validation";
 import { validateRestaurantDetails } from "../../validation/restaurant.validation";
 
 const Router = express.Router();
@@ -17,7 +17,7 @@ Router.post("/", async (req, res) => {
   try {
     const { data } = req.body;
 
-    await validateRestaurantDetails(req.body);
+    // await validateRestaurantDetails(req.body);
 
     const restaurant = await RestaurantModel.create(data);
     return res.status(200).json({
@@ -41,13 +41,13 @@ Router.get("/", async (req, res) => {
     //http:localhost:4000/?city=surat
     const { city } = req.query;
 
-    await validRequiredString(req.query);
+    // await validRequiredString(req.query);
 
     const restaurants = await RestaurantModel.find({ city });
 
     if (restaurants.length === 0)
       return res
-        .staus(404)
+        .status(404)
         .json({ message: "No restaurant found in this city" });
 
     return res.status(200).json({ restaurants });
@@ -66,7 +66,7 @@ Router.get("/", async (req, res) => {
 Router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    await validRequiredString(req.params);
+    await validateId(req.params);
     const restaurant = await RestaurantModel.findById(_id);
     if (!restaurant)
       return res.status(400).json({ error: "No restaurant found" });
@@ -83,10 +83,10 @@ Router.get("/:_id", async (req, res) => {
  * Accesss   Public
  * Method    GET
  */
-Router.get("/serach/:searchString", async (req, res) => {
+Router.get("/search/:searchString", async (req, res) => {
   try {
     const { searchString } = req.params;
-    await validRequiredString(req.params);
+    // await validRequiredString(req.params);
     const restaurants = await RestaurantModel.find({
       name: { $regex: searchString, $options: "i" },
     });

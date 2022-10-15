@@ -17,7 +17,7 @@ const Router = express.Router();
 Router.get("/:resID", async (req, res) => {
   try {
     const { resID } = req.params;
-    await validRequiredString(req.params);
+    // await validRequiredString(req.params);
 
     const reviews = await ReviewModel.find({ restaurant: resID }).sort({
       createdAt: -1,
@@ -44,7 +44,7 @@ Router.post(
       const { _id } = req.user;
       const { reviewData } = req.body;
 
-      await validateReview(req.body);
+      // await validateReview(req.body);
 
       const review = await ReviewModel.create({ ...reviewData, user: _id });
 
@@ -68,7 +68,7 @@ Router.delete(
   async (req, res) => {
     try {
       const { id } = req.params;
-      await validRequiredString(req.params);
+      // await validRequiredString(req.params);
       const { user } = req;
 
       const data = await ReviewModel.findOneAndDelete({
