@@ -1,5 +1,5 @@
 import express from "express";
-import passport from "passport";
+import passport, { use } from "passport";
 
 import { OrderModel } from "../../database/allModels";
 import { validateOrderDetails } from "../../validation/order.validation";
@@ -40,17 +40,19 @@ Router.get(
  * Method    PUT
  */
 Router.put(
-  "/new/:_id",
+  "/new",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
       const { user } = req;
       const { orderDetails } = req.body;
 
-      await validateOrderDetails(req.body);
+      // await validateOrderDetails(req.body);
 
       const addNewOrder = await OrderModel.findOneAndUpdate(
-        { user: user._id },
+        {
+          user: user._id,
+        },
         {
           $push: {
             orderDetails: orderDetails,
