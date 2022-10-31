@@ -1,0 +1,37 @@
+.full-width{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.mySwiper .swiper-button-prev,
+.mySwiper .swiper-button-next {
+  background-color: white;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 1px 3px #4f4e4ebe ;
+  padding: 5px !important;
+}
+
+.mySwiper .swiper-button-prev::after,
+.mySwiper .swiper-button-next::after {
+  font-size: 15px;
+  color: black;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.mySwiper .swiper-button-prev {
+  position: absolute ;
+  left: 5px
+}
+
+.mySwiper .swiper-button-next {
+  position: absolute ;
+  right: 5px
+}
