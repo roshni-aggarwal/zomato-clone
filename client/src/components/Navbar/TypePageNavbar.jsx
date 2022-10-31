@@ -86,7 +86,7 @@ const MobileNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
 const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
   return (
     <>
-      <div className="w-full items-center justify-between hidden lg:flex px-24">
+      <div className="w-full items-center justify-between hidden lg:flex">
         <div className="items-center flex w-1/6">
           <Link to={"/"}>
             <div className="w-32">
@@ -98,7 +98,7 @@ const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
             </div>
           </Link>
         </div>
-        <div className="w-3/6 items-center flex p-3 bg-white shadow-md gap-3 rounded border border-gray-200">
+        <div className="w-4/6 items-center flex p-3 bg-white shadow-md gap-3 rounded border border-gray-200">
           <div className="flex items-center justify-around gap-2 border-r-2 border-gray-200 pr-2 w-3/5">
             <HiLocationMarker className="text-zomato-400" size={"30px"} />
             <input
@@ -118,7 +118,7 @@ const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-around w-2/6 relative">
+        <div className="flex items-center justify-end w-1/6 relative">
           {user?.fullName ? (
             <>
               <div
@@ -173,7 +173,7 @@ const TypePageNavbar = () => {
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
-    <nav className="mx-auto bg-white w-full flex items-center p-4 lg:py-2 shadow-md lg:shadow-none">
+    <nav className="lg:container lg:mx-auto lg:px-20 p-2 bg-white w-full flex items-center shadow-md lg:shadow-none">
       <MobileNav
         user={user}
         isDropdownOpen={isDropdownOpen}
