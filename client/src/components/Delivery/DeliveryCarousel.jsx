@@ -31,7 +31,7 @@ const DeliveryCarousel = () => {
     {
       image:
         "https://b.zmtcdn.com/data/dish_images/ccb7dc2ba2b054419f805da7f05704471634886169.png",
-      title: "Burges",
+      title: "Burgers",
     },
     {
       image:
@@ -71,13 +71,13 @@ const DeliveryCarousel = () => {
         spaceBetween: 30,
       },
       1024: {
-        slidesPerView: 5,
+        slidesPerView: 4,
         spaceBetween: 40,
       },
       1298: {
         slidesPerView: 6,
         spaceBetween: 50,
-      }
+      },
     },
     modules: [Navigation],
     className: "mySwiper",
@@ -90,22 +90,22 @@ const DeliveryCarousel = () => {
 
   return (
     <>
-      <div className="lg:bg-gray-50 full-width lg:py-7 px-4 lg:px-24">
+      <div className="lg:bg-gray-50 full-width lg:py-7 px-4 lg:px-48">
         <div>
-          <h1 className="mt-4 md:text-3xl mb-7 text-2xl">
+          <h1 className="mt-4 md:text-3xl mb-7 text-2xl md:px-16 lg:px-0">
             {user.fullName
               ? "Eat what makes you happy"
               : "Inspiration for your first order"}
           </h1>
           <div className="lg:hidden grid grid-cols-3 md:grid-cols-4 gap-3 justify-center">
-            {categories.map((food) => (
-              <DeliveryCategoryCard {...food} />
+            {categories.map((food, index) => (
+              <DeliveryCategoryCard key={index} {...food} />
             ))}
           </div>
           <div className="hidden lg:block">
             <Swiper {...slideConfig}>
-              {categories.map((food) => (
-                <SwiperSlide>
+              {categories.map((food, index) => (
+                <SwiperSlide key={index}>
                   <DeliveryCategoryCard {...food} />
                 </SwiperSlide>
               ))}
