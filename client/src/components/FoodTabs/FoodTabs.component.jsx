@@ -18,7 +18,7 @@ const MobileTabs = () => {
       name: "Dining Out",
     },
     {
-      id: "night",
+      id: "nightlife",
       icon: <BiDrink />,
       name: "Night Life",
     },

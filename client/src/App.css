@@ -8,7 +8,9 @@
 }
 
 .mySwiper .swiper-button-prev,
-.mySwiper .swiper-button-next {
+.mySwiper .swiper-button-next,
+.nutritionSwiper .swiper-button-prev,
+.nutritionSwiper .swiper-button-next {
   background-color: white;
   border-radius: 100%;
   width: 30px;
@@ -18,7 +20,9 @@
 }
 
 .mySwiper .swiper-button-prev::after,
-.mySwiper .swiper-button-next::after {
+.mySwiper .swiper-button-next::after,
+.nutritionSwiper .swiper-button-prev::after,
+.nutritionSwiper .swiper-button-next::after {
   font-size: 15px;
   color: black;
   left: 50%;
@@ -36,4 +40,14 @@
   position: absolute ;
   right: 1px;
   border: 4px solid #fab5b9;
+}
+
+.nutritionSwiper .swiper-button-prev{
+  position: absolute ;
+  left: 1px;
+}
+
+.nutritionSwiper .swiper-button-next{
+  position: absolute ;
+  right: 1px;
 }
