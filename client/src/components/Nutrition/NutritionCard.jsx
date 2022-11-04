@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 const NutritionCard = (props) => {
   return (
     <>
-      <div className="bg-white rounded-2xl p-4 drop-shadow-md hover:drop-shadow-xl">
+      <div className="bg-white rounded-2xl p-4 drop-shadow-md hover:drop-shadow-xl hover:cursor-pointer">
         <div
           className={`w-full h-72 md:h-56 lg:h-48 rounded-t-2xl bg-${props.bg}-100`}
         >
