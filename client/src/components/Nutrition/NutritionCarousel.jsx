@@ -61,7 +61,7 @@ const NutritionCarousel = () => {
       },
     },
     modules: [Navigation],
-    className: "nutritionSwiper",
+    className: "mySwiper",
     navigation: true,
   };
 
