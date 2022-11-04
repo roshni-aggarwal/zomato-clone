@@ -11,12 +11,17 @@ const Tab = (props) => {
         className={classNames(
           "text-gray-500 font-semibold tracking-wide text-xl pb-4 px-4",
           {
-            "text-zomato-300 border-b-2 border-zomato-300": props.isActive,
+            "text-zomato-300 md:border-b-2 border-zomato-300": props.isActive,
           }
         )}
       >
         <h2>{props.title}</h2>
       </div>
+      <div
+        className={classNames("md:hidden relative h-[2px] w-full -bottom-0", {
+          " bg-zomato-300": props.isActive,
+        })}
+      ></div>
     </Link>
   );
 };
@@ -55,12 +60,12 @@ const Tabs = () => {
   ];
   return (
     <>
-      <div className="flex items-center gap-8 md:gap-16 md:justify-start overflow-x-scroll lg:overflow-x-auto">
+      <div className="flex items-center gap-4 md:gap-10 lg:gap-16 md:justify-start overflow-x-scroll overflow-y-hidden md:overflow-x-auto border-b-2 md:border-none">
         {tabs.map((tab, index) => (
           <Tab {...tab} key={index} />
         ))}
       </div>
-      <hr className="border-t-2" />
+      <hr className="hidden md:block border-t-2" />
     </>
   );
 };

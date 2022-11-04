@@ -3,7 +3,7 @@ import { AiFillStar } from "react-icons/ai";
 
 const RestaurantInfo = (props) => {
   return (
-    <div className="my-2">
+    <div className="my-2 sticky">
       <div className="flex flex-col-reverse md:flex-row gap-2 justify-between md:items-center">
         <h1 className="font-bold text-2xl tracking-wide">{props.name}</h1>
         <div className="flex items-center justify-between gap-4">
