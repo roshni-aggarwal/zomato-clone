@@ -40,3 +40,16 @@
   position: absolute ;
   right: 1px;
 }
+
+.swiper-horizontal>.swiper-pagination-bullets{
+  position: relative;
+  bottom: 10px !important;
+}
+
+.swiper-pagination-bullet-active{
+  background-color: rgb(68, 68, 68) !important; 
+}
+
+#ReactSimpleImageViewer {
+  z-index: 100;
+}

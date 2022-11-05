@@ -51,7 +51,7 @@ const RestaurantLayout = (Component) => {
         <div className="container mx-auto px-4 mt-8 lg:px-20 pb-20">
           <ImageGrid {...restaurant} />
           <RestaurantInfo {...restaurant} />
-          <div className="my-4 flex flex-wrap gap-3 mx-auto">
+          <div className="py-4 flex flex-wrap gap-3 mx-auto">
             <InfoButton isActive="true">
               <TiStarOutline /> Add Review
             </InfoButton>
@@ -65,12 +65,12 @@ const RestaurantLayout = (Component) => {
               <RiShareForwardLine size={18} color="#f9555d" /> Share
             </InfoButton>
           </div>
-          <div className="my-10">
+          <div className="pt-5 sticky top-40 md:top-32 bg-white z-10">
             <Tabs />
           </div>
           <Component {...props} />
         </div>
-        <CartContainer />
+        <CartContainer/>
       </>
     );
   };
