@@ -20,19 +20,19 @@ const SimilarRestaurantCard = (props) => {
               className="flex items-center justify-center gap-2 md:gap-1 border-r w-1/2
           "
             >
-              <div className="flex items-center bg-green-600 text-white rounded-md px-1 font-semibold">
+              <div className="flex items-center bg-green-600 text-white rounded-md px-1 font-semibold text-xs lg:text-sm">
                 {props.restaurantReviewValue} <TiStar />
               </div>
-              <small className="text-sm font-light tracking-wide">DINING</small>
+              <small className="text-xs lg:text-sm font-light tracking-wide">DINING</small>
             </div>
             <div
               className="flex items-center justify-center gap-2 w-1/2
           "
             >
-              <div className="flex items-center bg-green-600 text-white rounded-md px-1 font-semibold">
+              <div className="flex items-center bg-green-600 text-white rounded-md px-1 font-semibold text-xs lg:text-sm">
                 {props.deliveryValue} <TiStar />
               </div>
-              <small className="text-sm font-light tracking-wide">
+              <small className="text-xs lg:text-sm font-light tracking-wide">
                 DELIVERY
               </small>
             </div>

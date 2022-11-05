@@ -13,6 +13,7 @@ import MenuCollection from "./MenuCollection";
 import SimilarRestaurantCard from "./SimilarRestaurantCard";
 import MapView from "./MapView";
 import ReviewCard from "../Reviews/ReviewCard";
+import AddReviewCard from "../Reviews/AddReviewCard";
 
 const Overview = () => {
   const [restaurant, setRestaurant] = useState({
@@ -32,7 +33,7 @@ const Overview = () => {
     averageCost: "450",
     phoneNumber: "152546231",
     address: "Vesu, Surat",
-    mapLoaction: "21.14800001839723, 72.75629285363928",
+    mapLocation: "21.14800001839723, 72.75629285363928",
   });
 
   const [similarRestaurant, setSimilarRestaurant] = useState([
@@ -54,7 +55,7 @@ const Overview = () => {
         "https://b.zmtcdn.com/data/pictures/chains/4/19722844/c11fc85aadc1891ee896ff62f272e5ca_featured_v2.jpg?output-format=webp",
       phoneNumber: "152546231",
       address: "Adajan, Surat",
-      mapLoaction: "21.17020822753635, 72.79538940827193",
+      mapLocation: "21.17020822753635, 72.79538940827193",
     },
     {
       _id: "sdffdsadadsfadfadsfadsf",
@@ -69,7 +70,7 @@ const Overview = () => {
         "https://b.zmtcdn.com/data/pictures/5/18810265/60d63fc2da3627262038cf399a3d209a_featured_v2.jpg",
       phoneNumber: "152546231",
       address: "Bhatar,Surat",
-      mapLoaction: "21.178298175859783, 72.78973197558402",
+      mapLocation: "21.178298175859783, 72.78973197558402",
     },
     {
       _id: "124ksjf435245jfdfv34fg3",
@@ -90,7 +91,7 @@ const Overview = () => {
       phoneNumber: "152546231",
       image:
         "https://b.zmtcdn.com/data/pictures/9/3800659/fb8b02dd3271dc474f6fb5c2aafed02b_featured_v2.jpg",
-      mapLoaction: "21.178298175859783, 72.78973197558402",
+      mapLocation: "21.178298175859783, 72.78973197558402",
     },
     {
       _id: "124ksjf43524ch5jfdfv34fg3",
@@ -110,7 +111,7 @@ const Overview = () => {
       address: "Bhatar,Surat",
       image:
         "https://b.zmtcdn.com/data/pictures/5/18616325/d1e804c6c1cff21de81bc0e2223b15a2_featured_v2.jpg",
-      mapLoaction: "21.172267137035547, 72.7890180423591",
+      mapLocation: "21.172267137035547, 72.7890180423591",
     },
   ]);
 
@@ -120,7 +121,22 @@ const Overview = () => {
     "https://b.zmtcdn.com/data/menus/931/931/8d6623791860b054953b6c2c14d61bcb.jpg",
     "https://b.zmtcdn.com/data/menus/931/931/6d462a04051c0eabb0067149aa84cc64.jpg",
   ]);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    {
+      rating: 1.5,
+      isRestaurantReview: false,
+      createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
+      reviewText:
+        "there is no taste. no masala in dabeli or pani puri. ans gulab jamun in like atta",
+    },
+    {
+      rating: 4.5,
+      isRestaurantReview: false,
+      createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
+      reviewText:
+        "All-time hit combo was the best one though it has a huge variety in one plate and each item are delicious ❤",
+    },
+  ]);
   const { id } = useParams;
 
   const slideConfig = {
@@ -212,61 +228,32 @@ const Overview = () => {
         </div>
 
         <div className="my-4">
-          <h4 className="font-medium text-lg">Rate your experience for</h4>
-          <div className="flex gap-10 text-lg ">
-            <div className="flex gap-2 items-center ">
-              <input
-                type="radio"
-                id="rating"
-                name="rating"
-                value="Dining"
-                defaultChecked
-                className="accent-zomato-300 w-4 h-4 hover:text-zomato-300"
-              />
-              <label htmlFor="rating" className="font-light">
-                Dining
-              </label>
-            </div>
-            <div className="flex gap-2 items-center">
-              <input
-                type="radio"
-                id="rating"
-                name="rating"
-                value="Dining"
-                className="accent-zomato-300 w-4 h-4"
-              />
-              <label htmlFor="rating" className="font-light">
-                Delivery
-              </label>
-            </div>
+          <AddReviewCard />
+          <div className="my-2">
+            {reviews.map((review, index) => (
+              <ReviewCard key={index} {...review} />
+            ))}
           </div>
-          <ReactStars
-            count={5}
-            size={24}
-            onChange={(newRating) => console.log(newRating)}
-            activeColor="#ffd700"
-          />
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
-          ))}
         </div>
       </div>
 
-      <div className="w-full md:hidden flex flex-col my-4 gap-4 ">
+      <div className="w-full md:hidden flex flex-col my-4 gap-4 z-0">
         <MapView
           title={restaurant.name}
           address={restaurant.address}
-          mapLoacation={getLatLan(restaurant.mapLoaction)}
+          center={getLatLan(restaurant.mapLocation)}
           phoneNumber={restaurant.phoneNumber}
+          mapLocation={restaurant.mapLocation}
         />
       </div>
-      
-      <aside className="hidden md:flex flex-col md:w-1/4 h-fit sticky rounded-xl top-52 bg-white p-3 shadow-md gap-4 mt-4">
+
+      <aside className="hidden md:flex flex-col md:w-4/12 h-fit sticky rounded-xl top-52 bg-white p-3 shadow-md gap-4 mt-4">
         <MapView
           title={restaurant.name}
           address={restaurant.address}
-          mapLoacation={getLatLan(restaurant.mapLoaction)}
+          center={getLatLan(restaurant.mapLocation)}
           phoneNumber={restaurant.phoneNumber}
+          mapLocation={restaurant.mapLocation}
         />
       </aside>
     </div>
