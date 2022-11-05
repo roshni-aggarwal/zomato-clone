@@ -127,7 +127,7 @@ const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
               >
                 <div className="border border-gray-300 rounded-full w-9 h-9">
                   <img
-                    src=" https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1665987299~exp=1665987899~hmac=f87b5a7df7fdb1e1fd337d2db949672667cb6ec9ae7ed8881e5ed5a1153ee554"
+                    src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1665987299~exp=1665987899~hmac=f87b5a7df7fdb1e1fd337d2db949672667cb6ec9ae7ed8881e5ed5a1153ee554"
                     alt="avatar"
                     className="w-full h-full rounded-full object-cover"
                   />
