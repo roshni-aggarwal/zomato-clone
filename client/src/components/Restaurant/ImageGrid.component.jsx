@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { Link } from "react-router-dom";
 
 const ImageGrid = (props) => {
   return (
@@ -43,9 +44,11 @@ const ImageGrid = (props) => {
             className="h-full object-cover object-center "
           />
           <div className="absolute inset-0 bg-black bg-opacity-40" />
-          <h4 className="text-white text-center relative bottom-1/2">
-            View Gallery
-          </h4>
+          <Link to={"photos"}>
+            <h4 className="text-white text-center relative bottom-1/2">
+              View Gallery
+            </h4>
+          </Link>
         </div>
         <div className="overflow-hidden">
           <img
