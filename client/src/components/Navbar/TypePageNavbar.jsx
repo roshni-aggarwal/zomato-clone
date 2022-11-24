@@ -7,7 +7,17 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "react-external-link";
 
-const MobileNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
+// components
+import SignUp from "../Auth/SignUp";
+import LogIn from "../Auth/LogIn";
+
+const MobileNav = ({
+  user,
+  isDropdownOpen,
+  setIsDropdownOpen,
+  login,
+  signup,
+}) => {
   return (
     <>
       <div className="w-full flex items-center justify-between lg:hidden">
@@ -71,8 +81,8 @@ const MobileNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
               </span>
               {isDropdownOpen && (
                 <div className="absolute shadow-lg py-3 px-2 -bottom-20 -right-0 bg-white rounded-md w-3/4 z-20 flex flex-col items-start gap-2 border-gray-200">
-                  <button>Sign In</button>
-                  <button>Log In</button>
+                  <button onClick={signup}>Sign Up</button>
+                  <button onClick={login}>Log In</button>
                 </div>
               )}
             </>
@@ -83,7 +93,13 @@ const MobileNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
   );
 };
 
-const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
+const LargeNav = ({
+  user,
+  isDropdownOpen,
+  setIsDropdownOpen,
+  login,
+  signup,
+}) => {
   return (
     <>
       <div className="w-full items-center justify-between hidden lg:flex">
@@ -156,8 +172,12 @@ const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
           ) : (
             <>
               <div className="flex items-center justify-between text-gray-500 text-lg">
-                <button className="p-2">Log in</button>
-                <button className="p-2">Sign up</button>
+                <button className="p-2" onClick={login}>
+                  Log in
+                </button>
+                <button className="p-2" onClick={signup}>
+                  Sign up
+                </button>
               </div>
             </>
           )}
@@ -169,22 +189,48 @@ const LargeNav = ({ user, isDropdownOpen, setIsDropdownOpen }) => {
 
 const TypePageNavbar = () => {
   const user = {
-    fullName: "Roshni",
+    // fullName: "Roshni",
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogIn, setOpenLogIn] = useState(false);
+
+  const openSignUpModal = () => setOpenSignUp(true);
+  const openLogInModal = () => setOpenLogIn(true);
+
+  const login = () => {
+    openLogInModal();
+    setIsDropdownOpen(false);
+  };
+
+  const signup = () => {
+    openSignUpModal();
+    setIsDropdownOpen(false);
+  };
+
   return (
-    <nav className="lg:container lg:mx-auto lg:px-20 p-2 bg-white w-full flex items-center shadow-md lg:shadow-none">
-      <MobileNav
-        user={user}
-        isDropdownOpen={isDropdownOpen}
-        setIsDropdownOpen={setIsDropdownOpen}
-      />
-      <LargeNav
-        user={user}
-        isDropdownOpen={isDropdownOpen}
-        setIsDropdownOpen={setIsDropdownOpen}
-      />
-    </nav>
+    <>
+      <SignUp isOpen={openSignUp} setIsOpen={setOpenSignUp} />
+      <LogIn isOpen={openLogIn} setIsOpen={setOpenLogIn} />
+
+      <nav className="lg:container lg:mx-auto lg:px-20 p-2 bg-white w-full flex items-center shadow-md lg:shadow-none">
+        <MobileNav
+          user={user}
+          isDropdownOpen={isDropdownOpen}
+          setIsDropdownOpen={setIsDropdownOpen}
+          login={login}
+          signup={signup}
+        />
+        <LargeNav
+          user={user}
+          isDropdownOpen={isDropdownOpen}
+          setIsDropdownOpen={setIsDropdownOpen}
+          login={login}
+          signup={signup}
+        />
+      </nav>
+    </>
   );
 };
 
