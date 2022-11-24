@@ -7,7 +7,7 @@ const FoodList = (props) => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-col gap-4 border-b border-gray-400">
+        <div className="flex flex-col gap-4 border-b border-gray-200">
           <h2 id={props.target} className="text-xl tracking-wide font-medium">
             {props.name}
           </h2>
