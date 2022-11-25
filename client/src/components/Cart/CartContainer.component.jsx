@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 import FoodItem from "./FoodItem";
 
 const CardData = ({ toggle, cart }) => {
-  const continueToCheckout = useNavigate("/checkout/orders");
+  const navigate = useNavigate();
+  const continueToCheckout = () => navigate("/checkout/orders");
 
   return (
     <div className="flex items-center justify-between bg-zomato-500 p-2 rounded-md">
@@ -72,14 +73,14 @@ const CartContainer = () => {
         <>
           {isOpen && (
             <div className="fixed bottom-14 w-full overflow-y-scroll h-48 bg-white z-50 p-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-semibold">Your Order</h3>
+              <div className="flex items-center justify-between md:px-20">
+                <h3 className="text-xl font-bold">Your Order</h3>
                 <IoCloseSharp onClick={closeCart} className="cursor-pointer" />
               </div>
               <div className="flex flex-col my-2 gap-2 md:px-20">
-                {cart.map((food) => {
-                  <FoodItem key={food._id} {...food} />;
-                })}
+                {cart.map((food) => (
+                  <FoodItem key={food._id} {...food} />
+                ))}
               </div>
             </div>
           )}
