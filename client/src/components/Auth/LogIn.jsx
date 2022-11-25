@@ -3,6 +3,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
+// redux
+import { useDispatch } from "react-redux";
+import { logIn } from "../../redux/Reducers/auth/auth.action";
+
 const LogIn = ({ isOpen, setIsOpen }) => {
   const [userData, setUserData] = useState({
     email: "",
@@ -17,7 +21,10 @@ const LogIn = ({ isOpen, setIsOpen }) => {
     setIsOpen(false);
   };
 
+  const dispatch = useDispatch();
+
   const submit = () => {
+    dispatch(logIn(userData));
     closeModal();
     setUserData({ email: "", password: "" });
   };
@@ -76,7 +83,7 @@ const LogIn = ({ isOpen, setIsOpen }) => {
                       <div className="flex flex-col gap-1">
                         <label htmlFor="password">Password</label>
                         <input
-                          type="text"
+                          type="password"
                           name="password"
                           id="password"
                           placeholder="*****"
