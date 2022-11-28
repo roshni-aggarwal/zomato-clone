@@ -6,10 +6,17 @@ import { RiSearch2Line } from "react-icons/ri";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "react-external-link";
+import { useNavigate } from "react-router-dom";
 
 // components
 import SignUp from "../Auth/SignUp";
 import LogIn from "../Auth/LogIn";
+
+// redux
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../redux/Reducers/auth/auth.action";
+import { clearUser } from "../../redux/Reducers/user/user.action";
 
 const MobileNav = ({
   user,
@@ -17,6 +24,7 @@ const MobileNav = ({
   setIsDropdownOpen,
   login,
   signup,
+  logout,
 }) => {
   return (
     <>
@@ -67,7 +75,7 @@ const MobileNav = ({
               </div>
               {isDropdownOpen && (
                 <div className="absolute shadow-lg py-3 px-2 -bottom-14 -right-0 bg-white rounded-md w-3/4 z-20 flex flex-col items-start gap-2 border-gray-200">
-                  <button>Log Out</button>
+                  <button onClick={logout}>Log Out</button>
                 </div>
               )}
             </>
@@ -99,6 +107,7 @@ const LargeNav = ({
   setIsDropdownOpen,
   login,
   signup,
+  logout,
 }) => {
   return (
     <>
@@ -165,7 +174,7 @@ const LargeNav = ({
               </div>
               {isDropdownOpen && (
                 <div className="absolute shadow-lg -bottom-14 py-3 px-2 w-28 z-20 flex flex-col items-start rounded-md gap-2 bg-white border border-gray-200">
-                  <button>Log Out</button>
+                  <button onClick={logout}>Log Out</button>
                 </div>
               )}
             </>
@@ -188,9 +197,7 @@ const LargeNav = ({
 };
 
 const TypePageNavbar = () => {
-  const user = {
-    // fullName: "Roshni",
-  };
+  const user = useSelector((globalState) => globalState.user);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [openSignUp, setOpenSignUp] = useState(false);
@@ -209,6 +216,15 @@ const TypePageNavbar = () => {
     setIsDropdownOpen(false);
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const LogOut = () => {
+    dispatch(logOut());
+    dispatch(clearUser());
+    navigate("/delivery");
+  };
+
   return (
     <>
       <SignUp isOpen={openSignUp} setIsOpen={setOpenSignUp} />
@@ -221,6 +237,7 @@ const TypePageNavbar = () => {
           setIsDropdownOpen={setIsDropdownOpen}
           login={login}
           signup={signup}
+          logout={LogOut}
         />
         <LargeNav
           user={user}
@@ -228,6 +245,7 @@ const TypePageNavbar = () => {
           setIsDropdownOpen={setIsDropdownOpen}
           login={login}
           signup={signup}
+          logout={LogOut}
         />
       </nav>
     </>

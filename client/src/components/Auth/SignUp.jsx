@@ -3,11 +3,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
+// redux
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/Reducers/auth/auth.action";
+import { getMySelf } from "../../redux/Reducers/user/user.action";
+
 const SignUp = ({ isOpen, setIsOpen }) => {
   const [userData, setUserData] = useState({
+    fullName: "",
     email: "",
     password: "",
-    fullname: "",
   });
 
   const handleChange = (e) => {
@@ -18,9 +23,14 @@ const SignUp = ({ isOpen, setIsOpen }) => {
     setIsOpen(false);
   };
 
-  const submit = () => {
+  const dispatch = useDispatch();
+
+  const submit = async(e) => {
+    e.preventDefault();
+    await dispatch(signUp(userData));
+    await dispatch(getMySelf());
     closeModal();
-    setUserData({ email: "", password: "", fullname: "" });
+    setUserData({ fullName: "", email: "", password: "" });
   };
 
   const googleSignIn = () =>
@@ -63,13 +73,13 @@ const SignUp = ({ isOpen, setIsOpen }) => {
                   <div className="mt-4">
                     <form className="flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
-                        <label htmlFor="fullname">Fullname</label>
+                        <label htmlFor="fullName">Full Name</label>
                         <input
                           type="text"
-                          name="fullname"
-                          id="fullname"
+                          name="fullName"
+                          id="fullName"
                           placeholder="John Doe"
-                          value={userData.fullname}
+                          value={userData.fullName}
                           onChange={handleChange}
                           className="focus:outline outline-2 focus:outline-teal-500 p-2 rounded-md"
                         />
