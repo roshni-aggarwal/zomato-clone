@@ -29,8 +29,6 @@ const Tab = (props) => {
 const Tabs = () => {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   const tabs = [
     {
       title: "Overview",

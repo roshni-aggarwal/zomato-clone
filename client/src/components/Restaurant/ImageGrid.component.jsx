@@ -14,7 +14,7 @@ const ImageGrid = (props) => {
           <SwiperSlide key={index}>
             <div className="w-full h-60 md:hidden">
               <img
-                src={image.location}
+                src={props.images.length && image.location}
                 alt="restaurant"
                 className="w-full h-full object-cover object-center"
               />
@@ -25,21 +25,21 @@ const ImageGrid = (props) => {
       <div className="hidden md:grid gap-2 grid-rows-2 grid-cols-6 h-64 lg:h-96">
         <div className="overflow-hidden col-span-4 row-span-2">
           <img
-            src={props.images[0].location}
+            src={props.images.length && props.images[0].location}
             alt="image"
             className=" w-full object-cover object-center transition duration-700 brightness-90 hover:scale-105 hover:brightness-100"
           />
         </div>
         <div className="overflow-hidden">
           <img
-            src={props.images[1].location}
+            src={props.images.length && props.images[1].location}
             alt="image"
             className="h-full object-cover object-center transition duration-700 brightness-90 hover:scale-105 hover:brightness-100"
           />
         </div>
         <div className="relative">
           <img
-            src={props.images[3].location}
+            src={props.images.length && props.images[3].location}
             alt="image"
             className="h-full object-cover object-center "
           />
@@ -52,9 +52,9 @@ const ImageGrid = (props) => {
         </div>
         <div className="overflow-hidden">
           <img
-            src={props.images[2].location}
+            src={props.images.length && props.images[2].location}
             alt="image"
-            className="h-full object-cover object-center transition duration-700 brightness-90 hover:scale-105 hover:brightness-100"
+            className="h-full w-full object-cover object-center transition duration-700 brightness-90 hover:scale-105 hover:brightness-100"
           />
         </div>
         <div className="bg-gray-400 flex flex-col items-center justify-center text-white">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { IoMdArrowDropright } from "react-icons/io";
@@ -15,26 +15,19 @@ import MapView from "./MapView";
 import ReviewCard from "../Reviews/ReviewCard";
 import AddReviewCard from "../Reviews/AddReviewCard";
 
-const Overview = () => {
-  const [restaurant, setRestaurant] = useState({
-    _id: "124ksjf435245jv34fg3",
+// redux
+import { useSelector } from "react-redux";
 
-    name: "Nathu's Sweets",
-    restaurantReviewValue: "3.7",
-    cuisine: [
-      "Mithai",
-      "South Indian",
-      "Chinese",
-      "Street Food",
-      "Fast Food",
-      "Desserts",
-      "North Indian",
-    ],
-    averageCost: "450",
-    phoneNumber: "152546231",
-    address: "Vesu, Surat",
-    mapLocation: "21.14800001839723, 72.75629285363928",
-  });
+const Overview = () => {
+  const [restaurant, setRestaurant] = useState({});
+
+  const reduxState = useSelector(
+    (globalState) => globalState.restaurant.selectedRestaurant.restaurant
+  );
+
+  useEffect(() => {
+    if (reduxState) setRestaurant(reduxState);
+  }, [reduxState]);
 
   const [similarRestaurant, setSimilarRestaurant] = useState([
     {
@@ -166,7 +159,7 @@ const Overview = () => {
   };
 
   const getLatLan = (mapAddress) => {
-    return mapAddress.split(",").map((item) => parseFloat(item));
+    return mapAddress?.split(",").map((item) => parseFloat(item));
   };
 
   return (
@@ -196,14 +189,15 @@ const Overview = () => {
 
         <h4 className="text-lg font-medium">Cuisines</h4>
         <div className="flex flex-wrap gap-2">
-          {restaurant?.cuisine.map((cuisineName, index) => (
-            <span
-              key={index}
-              className="text-teal-600 font-light rounded-full py-1 px-2 border border-gray-300"
-            >
-              {cuisineName}
-            </span>
-          ))}
+          {restaurant.cuisine &&
+            restaurant?.cuisine.map((cuisineName, index) => (
+              <span
+                key={index}
+                className="text-teal-600 font-light rounded-full py-1 px-2 border border-gray-300"
+              >
+                {cuisineName}
+              </span>
+            ))}
         </div>
 
         <div className="my-4">
@@ -261,3 +255,21 @@ const Overview = () => {
 };
 
 export default Overview;
+
+// _id: "124ksjf435245jv34fg3",
+
+// name: "Nathu's Sweets",
+// restaurantReviewValue: "3.7",
+// cuisine: [
+//   "Mithai",
+//   "South Indian",
+//   "Chinese",
+//   "Street Food",
+//   "Fast Food",
+//   "Desserts",
+//   "North Indian",
+// ],
+// averageCost: "450",
+// phoneNumber: "152546231",
+// address: "Vesu, Surat",
+// mapLocation: "21.14800001839723, 72.75629285363928",
