@@ -31,7 +31,7 @@ const RestaurantInfo = (props) => {
       </div>
       <div className="flex flex-col justify-between">
         <p className="text-gray-700 font-light tracking-wide">
-          {props.cuisine.join(", ")}
+          {props.cuisine && props.cuisine.join(", ")}
         </p>
         <p className="text-gray-400 font-light text-sm lg:text-base">
           {props.address}
