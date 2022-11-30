@@ -4,6 +4,10 @@ import { useParams } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import Rating from "react-rating-stars-component";
 
+// redux
+import { useDispatch } from "react-redux";
+import { postReview } from "../../redux/Reducers/reviews/review.action";
+
 const ReviewModal = ({ isOpen, setIsOpen, type, ...props }) => {
   const [reviewData, setReviewData] = useState({
     subject: "",
@@ -29,6 +33,7 @@ const ReviewModal = ({ isOpen, setIsOpen, type, ...props }) => {
   }, [type]);
 
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setReviewData((prev) => ({
@@ -58,6 +63,7 @@ const ReviewModal = ({ isOpen, setIsOpen, type, ...props }) => {
   };
 
   const submit = () => {
+    dispatch(postReview({ ...reviewData, restaurant: id }));
     closeModal();
     setReviewData({
       subject: "",
@@ -118,7 +124,6 @@ const ReviewModal = ({ isOpen, setIsOpen, type, ...props }) => {
                           id="rating"
                           name="rating"
                           checked={reviewData.isRestaurantReview}
-                          defaultChecked
                           onChange={toggleDining}
                           className="accent-zomato-300 w-4 h-4 hover:text-zomato-300"
                         />
@@ -181,7 +186,7 @@ const ReviewModal = ({ isOpen, setIsOpen, type, ...props }) => {
                   <div className="mt-4 flex justify-end items-center">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-zomato-200 px-4 py-2 text-sm font-medium text-white hover:bg-zomato-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-zomato-200 px-4 py-2 text-sm font-medium text-white hover:bg-zomato-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       onClick={submit}
                     >
                       Add Review

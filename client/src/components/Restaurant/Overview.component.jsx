@@ -16,18 +16,14 @@ import ReviewCard from "../Reviews/ReviewCard";
 import AddReviewCard from "../Reviews/AddReviewCard";
 
 // redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getReview } from "../../redux/Reducers/reviews/review.action";
+import { getImage } from "../../redux/Reducers/image/image.action";
 
 const Overview = () => {
   const [restaurant, setRestaurant] = useState({});
-
-  const reduxState = useSelector(
-    (globalState) => globalState.restaurant.selectedRestaurant.restaurant
-  );
-
-  useEffect(() => {
-    if (reduxState) setRestaurant(reduxState);
-  }, [reduxState]);
+  const [menuImages, setMenuImages] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   const [similarRestaurant, setSimilarRestaurant] = useState([
     {
@@ -108,29 +104,38 @@ const Overview = () => {
     },
   ]);
 
-  const [menuImages, setMenuImages] = useState([
-    "https://b.zmtcdn.com/data/menus/931/931/d40e86a957d1ed6e6fabe5a67a161904.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/36f8a3b9e5dbf6435f903c9a8745bcc8.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/8d6623791860b054953b6c2c14d61bcb.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/6d462a04051c0eabb0067149aa84cc64.jpg",
-  ]);
-  const [reviews, setReviews] = useState([
-    {
-      rating: 1.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
-      reviewText:
-        "there is no taste. no masala in dabeli or pani puri. ans gulab jamun in like atta",
-    },
-    {
-      rating: 4.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
-      reviewText:
-        "All-time hit combo was the best one though it has a huge variety in one plate and each item are delicious ❤",
-    },
-  ]);
+  const dispatch = useDispatch();
   const { id } = useParams;
+
+  const reduxState = useSelector(
+    (globalState) => globalState.restaurant.selectedRestaurant.restaurant
+  );
+
+  const updateReviews = useSelector(
+    (globalState) => globalState.review.reviews
+  );
+
+  useEffect(() => {
+    if (reduxState) setRestaurant(reduxState);
+  }, [reduxState]);
+
+  useEffect(() => {
+    if (reduxState) {
+      dispatch(getImage(reduxState?.menuImages)).then((data) => {
+        const images = [];
+        data.payload.images.map(({ location }) => images.push(location));
+        setMenuImages(images);
+      });
+
+      dispatch(getReview(reduxState?._id)).then((data) => {
+        setReviews(data.payload.reviews);
+      });
+    }
+  }, [reduxState]);
+
+  useEffect(() => {
+    if (updateReviews) setReviews(updateReviews);
+  }, [updateReviews]);
 
   const slideConfig = {
     slidesPerView: 1,
@@ -235,7 +240,7 @@ const Overview = () => {
         <MapView
           title={restaurant.name}
           address={restaurant.address}
-          center={getLatLan(restaurant.mapLocation)}
+          center={getLatLan(restaurant?.mapLocation)}
           phoneNumber={restaurant.phoneNumber}
           mapLocation={restaurant.mapLocation}
         />
@@ -245,7 +250,7 @@ const Overview = () => {
         <MapView
           title={restaurant.name}
           address={restaurant.address}
-          center={getLatLan(restaurant.mapLocation)}
+          center={getLatLan(restaurant?.mapLocation)}
           phoneNumber={restaurant.phoneNumber}
           mapLocation={restaurant.mapLocation}
         />
