@@ -3,6 +3,9 @@ import { TiStar } from "react-icons/ti";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 
+// redux
+import {useSelector} from "react-redux"
+
 const ReviewCard = (props) => {
   dayjs.extend(relativeTime);
 

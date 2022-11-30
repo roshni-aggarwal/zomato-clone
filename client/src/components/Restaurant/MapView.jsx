@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { MdContentCopy } from "react-icons/md";
 import { FaDirections } from "react-icons/fa";
 
+// redux
+import { useSelector } from "react-redux";
+
 const MapView = (props) => {
+  // console.log(props.center);
+  // console.log(props.mapLocation);
+
+  // const [position, setPosition] = useState();
+
+  // const reduxState = useSelector(
+  //   (globalState) =>
+  //     globalState.restaurant.selectedRestaurant.restaurant
+  // );
+
+  // // console.log(reduxState);
+
+  // // const position = reduxState.mapLocation;
+  // // console.log(position);
+
+  // useEffect(() => {
+  //   if (reduxState) {
+  //     setPosition(reduxState);
+  //     console.log(position);
+  //   }
+  // }, [reduxState]);
+
+  // console.log(position);
+  const position1 = [28.6581637791, 77.193508409];
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
@@ -14,7 +41,7 @@ const MapView = (props) => {
         <h2 className="text-xl tracking-wide">Direction</h2>
         <div className="w-full h-52">
           <MapContainer
-            center={props.center}
+            center={position1}
             zoom={13}
             scrollWheelZoom={false}
             className="h-full"
@@ -23,7 +50,7 @@ const MapView = (props) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={props.center}>
+            <Marker position={position1}>
               <Popup>{props.title}</Popup>
             </Marker>
           </MapContainer>

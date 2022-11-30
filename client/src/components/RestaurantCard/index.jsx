@@ -18,7 +18,7 @@ const RestaurantCard = (props) => {
       const images = data.payload.images;
       setImage((prev) => ({ ...prev, images }));
     });
-  }, props.photos);
+  }, [props.photos]);
 
   const { type } = useParams();
 

@@ -5,7 +5,7 @@ import ReviewModal from "./ReviewModal";
 
 const AddReviewCard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [type, setType] = useState("Dining");
+  const [type, setType] = useState("dining");
 
   const openModal = () => {
     if (!localStorage.zomatoUser) {
@@ -32,7 +32,7 @@ const AddReviewCard = () => {
             className="accent-zomato-300 w-4 h-4 hover:text-zomato-300"
             onChange={(each) => getReviewType(each.target.id)}
           />
-          <label htmlFor="rating" className="font-light">
+          <label htmlFor="dining" className="font-light">
             Dining
           </label>
         </div>
@@ -44,7 +44,7 @@ const AddReviewCard = () => {
             className="accent-zomato-300 w-4 h-4"
             onChange={(each) => getReviewType(each.target.id)}
           />
-          <label htmlFor="rating" className="font-light">
+          <label htmlFor="delivery" className="font-light">
             Delivery
           </label>
         </div>

@@ -1,26 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // components
 import ReviewCard from "../Reviews/ReviewCard";
 import AddReviewCard from "../Reviews/AddReviewCard";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { getReview } from "../../redux/Reducers/reviews/review.action";
+
 const Reviews = () => {
-  const [reviews, setReviews] = useState([
-    {
-      rating: 1.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
-      reviewText:
-        "there is no taste. no masala in dabeli or pani puri. ans gulab jamun in like atta",
-    },
-    {
-      rating: 4.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
-      reviewText:
-        "All-time hit combo was the best one though it has a huge variety in one plate and each item are delicious ❤",
-    },
-  ]);
+  const [reviews, setReviews] = useState([]);
+  const [name, setName] = useState();
+
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const updatedReviews = useSelector(
+    (globalState) => globalState.review.reviews
+  );
+
+  const reduxState = useSelector(
+    (globalState) => globalState.restaurant.selectedRestaurant.restaurant
+  );
+
+  useEffect(() => {
+    dispatch(getReview(id)).then((data) => {
+      setReviews(data.payload.reviews);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (updatedReviews) setReviews(updatedReviews);
+  }, [updatedReviews]);
+
+  useEffect(() => {
+    if (reduxState) setName(reduxState.name);
+  }, [reduxState]);
 
   return (
     <>
@@ -29,7 +45,7 @@ const Reviews = () => {
           <div className="w-full md:hidden">
             <AddReviewCard />
           </div>
-          <h2 className="text-xl font-medium">Reviews</h2>
+          <h2 className="text-xl font-medium">{name} Reviews</h2>
           {reviews.map((review, index) => (
             <ReviewCard key={index} {...review} />
           ))}
