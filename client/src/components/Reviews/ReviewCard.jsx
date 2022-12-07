@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TiStar } from "react-icons/ti";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 
 // redux
-import {useSelector} from "react-redux"
+import { useDispatch } from "react-redux";
+import { getUser } from "../../redux/Reducers/user/user.action";
 
 const ReviewCard = (props) => {
   dayjs.extend(relativeTime);
 
-  const [user, setUser] = useState("Roshni");
+  const [user, setUser] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser(props.user)).then((data) => setUser(data.payload.user));
+  }, [props]);
 
   return (
     <div className="flex flex-col gap-3 px-2 py-4 border-b border-gray-200">

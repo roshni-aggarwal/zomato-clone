@@ -24,7 +24,7 @@ const LogIn = ({ isOpen, setIsOpen }) => {
 
   const dispatch = useDispatch();
 
-  const submit = async(e) => {
+  const submit = async (e) => {
     e.preventDefault();
     await dispatch(logIn(userData));
     await dispatch(getMySelf());
@@ -33,7 +33,7 @@ const LogIn = ({ isOpen, setIsOpen }) => {
   };
 
   const googleSignIn = () =>
-    (window.location.href = "http://localhost:4000/auth/google");
+    (window.location.href = `http://localhost:4000/auth/google`);
 
   return (
     <>

@@ -197,7 +197,7 @@ const LargeNav = ({
 };
 
 const TypePageNavbar = () => {
-  const user = useSelector((globalState) => globalState.user);
+  const user = useSelector((globalState) => globalState.user.user);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [openSignUp, setOpenSignUp] = useState(false);

@@ -19,11 +19,13 @@ import Photos from "./components/Restaurant/Photos.component";
 // redux
 import { useDispatch } from "react-redux";
 import { getMySelf } from "./redux/Reducers/user/user.action";
+import { getCart } from "./redux/Reducers/cart/cart.action";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMySelf());
+    dispatch(getCart());
   }, [localStorage]);
 
   return (

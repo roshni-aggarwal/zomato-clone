@@ -12,6 +12,12 @@ const foodReducer = (state = initialState, action) => {
         ...action.payload,
       };
     }
+    case GET_FOOD: {
+      return {
+        ...state,
+        foodList: [action.payload],
+      };
+    }
     default:
       return {
         ...state,
