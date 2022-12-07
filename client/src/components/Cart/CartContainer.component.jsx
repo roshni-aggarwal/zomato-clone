@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 // components
 import FoodItem from "./FoodItem";
 
+// redux
+import { useSelector } from "react-redux";
+
 const CardData = ({ toggle, cart }) => {
   const navigate = useNavigate();
   const continueToCheckout = () => navigate("/checkout/orders");
@@ -39,29 +42,7 @@ const CardData = ({ toggle, cart }) => {
 };
 
 const CartContainer = () => {
-  const [cart, setCart] = useState([
-    {
-      image:
-        "https://b.zmtcdn.com/data/dish_photos/af1/fd1b012ebfbe82f2e5212b702ce19af1.jpg",
-      name: "Butter Pancakes with Bacon",
-      rating: 4.5,
-      price: 200,
-      description: "Rashers and bourbon caramel sauce.",
-      quantity: 3,
-      totalPrice: 600,
-    },
-    {
-      image:
-        "https://b.zmtcdn.com/data/dish_photos/077/28e7baadea310b7b337fd2fb3f653077.jpg",
-      name: "Amritsari Fish Tikka",
-      rating: 5,
-      price: 250,
-      quantity: 1,
-      totalPrice: 250,
-      description:
-        "Fish marinated in flavourful lemon-chilli masala roasted in the tandoor with care. Serves 2-3 people.",
-    },
-  ]);
+  const cart = useSelector((globalState) => globalState.cart.cart);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleCart = () => setIsOpen((prev) => !prev);

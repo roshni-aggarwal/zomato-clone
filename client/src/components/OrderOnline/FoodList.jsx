@@ -13,7 +13,7 @@ const FoodList = (props) => {
           </h2>
           <div className="flex flex-col items-start gap-6">
             {props.items.map((each, index) => (
-              <FoodItem key={index} {...each} _id={index} />
+              <FoodItem key={index} _id={each} />
             ))}
           </div>
         </div>

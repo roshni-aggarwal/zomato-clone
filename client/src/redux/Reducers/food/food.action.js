@@ -20,10 +20,10 @@ export const getFoodList = (menuId) => async (dispatch) => {
   try {
     const menu = await axios({
       method: "GET",
-      url: `http://localhost:4000/menu/list/${menuIdId}`,
+      url: `http://localhost:4000/menu/list/${menuId}`,
     });
 
-    return dispatch({ type: GET_FOOD_LIST, payload: menu.data });
+    return dispatch({ type: GET_FOOD_LIST, payload: menu.data.menus });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
   }

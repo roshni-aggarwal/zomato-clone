@@ -1,76 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // components
 import NightLifeCarousel from "./NightLifeCaraousel";
 import RestaurantCard from "../RestaurantCard";
 
+// redux
+import { useSelector } from "react-redux";
+
 const Dining = () => {
-  const [restaurantList, setRestaurantList] = useState([
-    {
-      _id: "124ksjf435245jv34fg3",
-      isPro: true,
-      isOff: true,
-      name: "Nathu's Sweets",
-      restaurantReviewValue: "3.7",
-      cuisine: [
-        "Mithai",
-        "South Indian",
-        "Chinese",
-        "Street Food",
-        "Fast Food",
-        "Desserts",
-        "North Indian",
-      ],
-      averageCost: "450",
-      address: "Piplod Surat",
-    },
-    {
-      _id: "sdffdsadadsfadfadsfadsf",
-      isPro: true,
-      isOff: false,
-      name: "Master Koii's",
-      restaurantReviewValue: "4.6",
-      cuisine: ["Asian", "Chinese", "Thai", "Malaysian", "Korean"],
-      averageCost: "600",
-      address: "Piplod Surat",
-    },
-    {
-      _id: "124ksjf435245jfdfv34fg3",
-      isPro: true,
-      isOff: true,
-      name: "Nathu's Sweets",
-      restaurantReviewValue: "3.7",
-      cuisine: [
-        "Mithai",
-        "South Indian",
-        "Chinese",
-        "Street Food",
-        "Fast Food",
-        "Desserts",
-        "North Indian",
-      ],
-      averageCost: "450",
-      address: "Piplod Surat",
-    },
-    {
-      _id: "124ksjf43524ch5jfdfv34fg3",
-      isPro: true,
-      isOff: true,
-      name: "Nathu's Sweets",
-      restaurantReviewValue: "3.7",
-      cuisine: [
-        "Mithai",
-        "South Indian",
-        "Chinese",
-        "Street Food",
-        "Fast Food",
-        "Desserts",
-        "North Indian",
-      ],
-      averageCost: "450",
-      address: "Piplod Surat",
-    },
-  ]);
+  const [restaurantList, setRestaurantList] = useState([]);
+
+  const reduxState = useSelector(
+    (globalState) => globalState.restaurant.restaurants
+  );
+
+  useEffect(() => {
+    reduxState && setRestaurantList(reduxState);
+  }, [reduxState]);
+
   return (
     <div className="mb-10">
       <NightLifeCarousel />
