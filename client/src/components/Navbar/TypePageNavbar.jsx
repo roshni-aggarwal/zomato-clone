@@ -222,7 +222,7 @@ const TypePageNavbar = () => {
   const LogOut = () => {
     dispatch(logOut());
     dispatch(clearUser());
-    navigate("/delivery");
+    navigate("/");
   };
 
   return (
