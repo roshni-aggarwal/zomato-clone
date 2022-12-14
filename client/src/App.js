@@ -10,6 +10,7 @@ import GoogleAuth from "./pages/GoogleAuth.page";
 import Type from "./pages/Type.page";
 
 //components
+import Home from "./pages/Home.page";
 import Overview from "./components/Restaurant/Overview.component";
 import OrderOnline from "./components/Restaurant/OrderOnline.component";
 import Menu from "./components/Restaurant/Menu.component";
@@ -31,8 +32,8 @@ function App() {
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Navigate to="/delivery" />} />
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Navigate to="/delivery" />} /> */}
         <Route path="/:type" element={<Type />} />
         <Route path="/restaurant/:id" element={<Restaurant />}>
           <Route path="overview" element={<Overview />} />
